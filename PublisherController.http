@@ -1,0 +1,14 @@
+POST http://localhost:8080/publisher
+Content-Type: application/x-www-form-urlencoded
+
+name=Jarek
+
+###
+GET http://localhost:8080/publisher?id=1
+
+###
+
+PUT http://localhost:8080/publisher?id=1&name=Sławomir
+
+###
+DELETE  http://localhost:8080/publisher?id=1

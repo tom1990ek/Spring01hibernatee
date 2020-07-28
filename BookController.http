@@ -1,0 +1,24 @@
+
+
+###
+POST http://localhost:8080/book
+Content-Type: application/x-www-form-urlencoded
+
+title=Alasds&rating=8&description=Fajnmma książka
+
+###
+GET http://localhost:8080/book?id=1
+
+###
+
+GET http://localhost:8080/books
+
+###
+
+GET http://localhost:8080/ratingbooks?rating=5
+
+###
+PUT http://localhost:8080/book?id=1&title=Nowy tytuł
+
+###
+DELETE http://localhost:8080/book?id=1

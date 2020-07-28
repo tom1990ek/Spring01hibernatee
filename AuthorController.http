@@ -1,0 +1,22 @@
+
+
+###
+POST http://localhost:8080/author
+Content-Type: application/x-www-form-urlencoded
+
+firstName=Adam&lastName=Mickiewicz
+
+###
+GET http://localhost:8080/author?id=1
+
+###
+
+PUT http://localhost:8080/author?id=1&firstName=Juliusz&lastName=Słowacki
+
+###
+DELETE  http://localhost:8080/author?id=1
+
+
+
+
+

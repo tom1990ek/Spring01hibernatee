@@ -23,6 +23,6 @@ public class AuthorService {
     }
     @Transactional
     public Author deleteAuthor(long id) {
-        return authorRepository.deleteAuthor(id);
+        return authorRepository.removeAuthor(id);
     }
 }

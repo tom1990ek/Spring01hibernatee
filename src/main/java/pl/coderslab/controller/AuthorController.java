@@ -1,50 +1,57 @@
 package pl.coderslab.controller;
+
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.Author;
+import pl.coderslab.entity.Book;
 import pl.coderslab.service.AuthorService;
+import pl.coderslab.service.BookService;
+
 @RestController
 public class AuthorController {
+
     private final AuthorService authorService;
-    public AuthorController(AuthorService authorService) {
+
+    AuthorController(final AuthorService authorService) {
         this.authorService = authorService;
     }
-    //create  /author?firstName=Adam&lastName=Mickiewicz
-    @PostMapping(path = "/author", produces = "text/plain; charset=UTF-8")
-    String addAuthor(@RequestParam("firstName") String firstName,
-                     @RequestParam("lastName") String lastName){
+
+    // GET /author?id=1
+    @GetMapping(path = "/author", produces = "text/plain;charset=UTF-8")
+    String getAuthor(@RequestParam("id") long authorId) {
+
+        Author author = authorService.findAuthorById(authorId);
+
+        return  author.toString();
+    }
+
+    // POST /author firstNamet=Jan&lastName=Brzechwa
+    @PostMapping(path = "/author", produces = "text/plain;charset=UTF-8")
+    String addAuthor(
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName) {
+
         Author author = authorService.addAuthor(firstName, lastName);
+
+        return author.toString();
+
+    }
+
+    // PUT /author?id=1&firstName=Henryk&lastName=Sienkiewicz
+    @PutMapping(path = "/author", produces = "text/plain;charset=UTF-8")
+    String updateAuthor(
+            @RequestParam("id") long authorId,
+            @RequestParam("firstName") String newFirstName,
+            @RequestParam("lastName") String newLastName) {
+
+        Author author = authorService.updateAuthor(authorId, newFirstName, newLastName);
         return author.toString();
     }
-    //read  /author?id=1
-    @GetMapping("/author")
-    String findAuthorById(@RequestParam("id") long id){
-        if(authorService.findAuthorById(id) != null) {
-            Author author = authorService.findAuthorById(id);
-            return author.toString();
-        } else{
-            return "Brak autora";
-        }
-    }
-    //update /author?id=1&firstName=Kowal&lastName=Janowski
-    @PutMapping("/author")
-    String updateAuthor(@RequestParam("id") long id,
-                        @RequestParam("firstName") String firstName,
-                        @RequestParam("lastName") String lastName){
-        if(authorService.findAuthorById(id) != null) {
-            Author author = authorService.updateAuthor(id, firstName, lastName);
-            return author.toString();
-        } else {
-            return "Brak autora";
-        }
-    }
-    //delete /author?id=1
-    @DeleteMapping("/author")
-    String deleteAuthor(@RequestParam("id") long id){
-        if(authorService.findAuthorById(id) != null) {
-            Author author = authorService.deleteAuthor(id);
-            return author.toString();
-        } else {
-            return "Brak autora";
-        }
+
+    // DELETE /author?id=1
+    @DeleteMapping(path = "/author", produces = "text/plain;charset=UTF-8")
+    String removeAuthor(@RequestParam("id") long authorId) {
+
+        Author author = authorService.deleteAuthor(authorId);
+        return author.toString();
     }
 }
